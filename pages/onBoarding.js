@@ -32,7 +32,7 @@ const onBoarding = () => {
         {
           backgroundColor: '#FFF',
           image: <Image source={require('../assets/Ellipse1.png')} />,
-          title: 'Belanja di Endang',
+          title: 'Belanja di Distract',
           subtitle:
             'Belanja melalui aplikasi tidak antri cocok untuk pembeli yang tidak bisa ke toko',
         },

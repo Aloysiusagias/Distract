@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -10,11 +10,13 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {Picker} from '@react-native-picker/picker';
 
-const register = () => {
+const registerDaerah = () => {
   let {width, height} = Dimensions.get('window');
-  height = height - height * 0.035;
+  const [province, setProvince] = useState('Select');
   const navigation = useNavigation();
+  height = height - height * 0.035;
   return (
     <ScrollView>
       <View style={{width: width, height: height}}>
@@ -26,46 +28,48 @@ const register = () => {
           </View>
           <View style={styles.containerIsi}>
             <View style={[styles.input, {marginTop: '20%'}]}>
-              <Image source={require('../assets/person_outline.png')} />
-              <TextInput
-                placeholder="Nama"
+              <Text style={styles.teksKet}>Provinsi</Text>
+              <Picker
+                selectedValue={province}
+                onValueChange={(item, index) => setProvince(item)}
                 style={styles.inputtext}
-                underlineColorAndroid="black"
-              />
+                itemStyle={{fontSize: 20}}>
+                <Picker.Item label="Jawa Tengah" value="Jawa Tengah" />
+                <Picker.Item label="Jawa Timur" value="Jawa Timur" />
+                <Picker.Item label="Jawa Barat" value="Jawa Barat" />
+              </Picker>
             </View>
             <View style={[styles.input, {marginVertical: '5%'}]}>
-              <Image source={require('../assets/call.png')} />
-              <TextInput
-                placeholder="Nomor Telepon"
+              <Text style={styles.teksKet}>Kabupaten</Text>
+              <Picker
+                selectedValue={province}
+                onValueChange={(item, index) => setProvince(item)}
                 style={styles.inputtext}
-                underlineColorAndroid="black"
-                keyboardType="phone-pad"
-              />
+                itemStyle={{fontSize: 20}}>
+                <Picker.Item label="Pati" value="Pati" />
+                <Picker.Item label="Sragen" value="Sragen" />
+                <Picker.Item label="Karang Anyar" value="Karang Anyar" />
+              </Picker>
             </View>
             <View style={styles.input}>
-              <Image source={require('../assets/vpn_key.png')} />
-              <TextInput
-                placeholder="Password"
+              <Text style={styles.teksKet}>Kecamatan</Text>
+              <Picker
+                selectedValue={province}
+                onValueChange={(item, index) => setProvince(item)}
                 style={styles.inputtext}
-                underlineColorAndroid="black"
-                secureTextEntry={true}
-              />
+                itemStyle={{fontSize: 20}}>
+                <Picker.Item label="Karang Malang" value="Karang Malang" />
+                <Picker.Item label="Dayueh Kolot" value="Dayueh Kolot" />
+                <Picker.Item label="Sragen" value="Sragen" />
+              </Picker>
             </View>
             <TouchableOpacity
               style={{marginTop: '15%', marginBottom: '10%'}}
-              onPress={() => navigation.navigate('registerDaerah')}>
+              onPress={() => navigation.navigate('bottomTabs')}>
               <View style={styles.button}>
-                <Text style={styles.buttonText}>DAFTAR</Text>
+                <Text style={styles.buttonText}>SELESAI</Text>
               </View>
             </TouchableOpacity>
-            <Text style={styles.punyaAkun}>
-              Sudah punya akun?{' '}
-              <Text
-                style={{color: '#4D5BAA'}}
-                onPress={() => navigation.navigate('login')}>
-                Masuk
-              </Text>
-            </Text>
           </View>
         </View>
       </View>
@@ -109,17 +113,14 @@ const styles = StyleSheet.create({
     elevation: 12,
   },
   input: {
-    backgroundColor: '#E4E3E3',
     marginHorizontal: '3%',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 20,
   },
   inputtext: {
-    width: '80%',
+    width: '70%',
     marginLeft: '5%',
-    fontSize: 18,
   },
   button: {
     backgroundColor: '#0E49B5',
@@ -160,6 +161,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '12%',
   },
+  teksKet: {
+    fontSize: 20,
+  },
 });
 
-export default register;
+export default registerDaerah;
