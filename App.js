@@ -10,9 +10,9 @@ const App = () => {
   const bottomTabs = () => {
     return(
       <bottomTab.Navigator>
-        <bottomTab.Screen name='toko' component={toko}/>
-        <bottomTab.Screen name='riwayatPesanan' component={riwayatPesanan}/>
-        <bottomTab.Screen name='profil' component={profil}/>
+        <bottomTab.Screen name='Toko' component={toko}/>
+        <bottomTab.Screen name='Riwayat Pesanan' component={riwayatPesanan}/>
+        <bottomTab.Screen name='Profil' component={profil}/>
       </bottomTab.Navigator>
     )
   }

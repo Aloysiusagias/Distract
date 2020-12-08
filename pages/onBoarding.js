@@ -12,8 +12,8 @@ const onBoarding = () => {
   return (
     <Onboarding
       SkipButtonComponent={Skip}
-      onDone={() => navigation.navigate('register')}
-      onSkip={() => navigation.navigate('register')}
+      onDone={() => navigation.navigate('login')}
+      onSkip={() => navigation.navigate('login')}
       pages={[
         {
           backgroundColor: '#FFF',

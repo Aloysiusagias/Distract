@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {TabView, SceneMap} from 'react-native-tab-view';
 
+
 const FirstRoute = () => (
   <FlatList
     data={[...Array(3)]}
@@ -26,6 +27,7 @@ const FirstRoute = () => (
           nama = 'Toko tersebut';
           break;
       }
+      
       return (
         <View style={styles.items}>
           <Text style={{fontSize: 24, color: '#fff'}}>{nama}</Text>
