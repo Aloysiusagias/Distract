@@ -8,92 +8,107 @@ import {
   FlatList,
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {TabView, SceneMap} from 'react-native-tab-view';
-
-const FirstRoute = () => (
-  <FlatList
-    data={[...Array(3)]}
-    keyExtractor={(item, index) => index + 'a'}
-    renderItem={({item, index}) => {
-      let nama;
-      switch (index) {
-        case 0:
-          nama = 'Toko ini';
-          break;
-        case 1:
-          nama = 'Toko itu';
-          break;
-        case 2:
-          nama = 'Toko tersebut';
-          break;
-      }
-
-      return (
-        <TouchableOpacity>
-          <View style={styles.items}>
-            <Text style={{fontSize: 24, color: '#fff'}}>{nama}</Text>
-            <Text style={{fontSize: 16, color: '#fff'}}>25 November 2020</Text>
-          </View>
-        </TouchableOpacity>
-      );
-    }}
-  />
-);
-
-const SecondRoute = () => (
-  <FlatList
-    data={[...Array(1)]}
-    keyExtractor={(item, index) => index + 'a'}
-    renderItem={({item, index}) => {
-      let nama;
-      switch (index) {
-        case 0:
-          nama = 'Toko Sinar Mas';
-          break;
-      }
-      return (
-        <View style={styles.items}>
-          <Text style={{fontSize: 24, color: '#fff'}}>{nama}</Text>
-          <Text style={{fontSize: 16, color: '#fff'}}>25 November 2020</Text>
-        </View>
-      );
-    }}
-  />
-);
-
-const ThirdRoute = () => (
-  <FlatList
-    data={[...Array(2)]}
-    keyExtractor={(item, index) => index + 'a'}
-    renderItem={({item, index}) => {
-      let nama;
-      switch (index) {
-        case 0:
-          nama = 'TobangaDO';
-          break;
-        case 1:
-          nama = 'Joko Store';
-          break;
-      }
-      return (
-        <View style={styles.items}>
-          <Text style={{fontSize: 24, color: '#fff'}}>{nama}</Text>
-          <Text style={{fontSize: 16, color: '#fff'}}>25 November 2020</Text>
-        </View>
-      );
-    }}
-  />
-);
+import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import {useNavigation} from '@react-navigation/native';
 
 const initialLayout = {width: Dimensions.get('window').width};
 
 const riwayatPesanan = () => {
+  var navigation = useNavigation();
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: 'first', title: 'Dikemas'},
     {key: 'second', title: 'Selesai Dikemas'},
     {key: 'third', title: 'Selesai'},
   ]);
+
+  const FirstRoute = () => (
+    <FlatList
+      data={[...Array(3)]}
+      keyExtractor={(item, index) => index + 'a'}
+      renderItem={({item, index}) => {
+        let nama;
+        switch (index) {
+          case 0:
+            nama = 'Toko ini';
+            break;
+          case 1:
+            nama = 'Toko itu';
+            break;
+          case 2:
+            nama = 'Toko tersebut';
+            break;
+        }
+
+        return (
+          <TouchableOpacity
+            onPress={() => navigation.navigate('statusPesanan')}>
+            <View style={styles.items}>
+              <Text style={{fontSize: 24, color: '#fff'}}>{nama}</Text>
+              <Text style={{fontSize: 16, color: '#fff'}}>
+                25 November 2020
+              </Text>
+            </View>
+          </TouchableOpacity>
+        );
+      }}
+    />
+  );
+
+  const SecondRoute = () => (
+    <FlatList
+      data={[...Array(1)]}
+      keyExtractor={(item, index) => index + 'a'}
+      renderItem={({item, index}) => {
+        let nama;
+        switch (index) {
+          case 0:
+            nama = 'Toko Sinar Mas';
+            break;
+        }
+        return (
+          <TouchableOpacity
+            onPress={() => navigation.navigate('statusPesanan')}>
+            <View style={styles.items}>
+              <Text style={{fontSize: 24, color: '#fff'}}>{nama}</Text>
+              <Text style={{fontSize: 16, color: '#fff'}}>
+                25 November 2020
+              </Text>
+            </View>
+          </TouchableOpacity>
+        );
+      }}
+    />
+  );
+
+  const ThirdRoute = () => (
+    <FlatList
+      data={[...Array(2)]}
+      keyExtractor={(item, index) => index + 'a'}
+      renderItem={({item, index}) => {
+        let nama;
+        switch (index) {
+          case 0:
+            nama = 'TobangaDO';
+            break;
+          case 1:
+            nama = 'Joko Store';
+            break;
+        }
+        return (
+          <TouchableOpacity
+            onPress={() => navigation.navigate('statusPesanan')}>
+            <View style={styles.items}>
+              <Text style={{fontSize: 24, color: '#fff'}}>{nama}</Text>
+              <Text style={{fontSize: 16, color: '#fff'}}>
+                25 November 2020
+              </Text>
+            </View>
+          </TouchableOpacity>
+        );
+      }}
+    />
+  );
 
   const renderScene = SceneMap({
     first: FirstRoute,
@@ -117,6 +132,9 @@ const riwayatPesanan = () => {
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={initialLayout}
+        renderTabBar={(props) => (
+          <TabBar {...props} labelStyle={{textAlign: 'center'}} />
+        )}
       />
     </View>
   );
