@@ -13,10 +13,10 @@ import {
 const statusPesanan = () => {
     const navigation = useNavigation();
     let {width, height} = Dimensions.get('window');
-    height = height - height * 0.108;
+    height = height - height * 0.035;
     return(
     <ScrollView>
-      <View style={{width: width, height: height}}>
+      <View style={{width: width, height: height, backgroundColor: 'white'}}>
         <View style={styles.bgsquare}>
           <View style={styles.bgIcon}>
             <Image
@@ -28,18 +28,64 @@ const statusPesanan = () => {
           <Text style={styles.teksStatus}>Status: Dikemas</Text>
         </View>   
         <View >   
+            
+              <View style={styles.button}>
             <TouchableOpacity
               onPress={() => navigation.navigate('')}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Tekan disini untuk hubungi penjual</Text>
+                <Text style={styles.buttonText}>Tekan disini untuk hubungi penjual</Text> 
+              </TouchableOpacity>  
               </View>
-            </TouchableOpacity>  
-            <View style={styles.items}>
-            <Image source={require('../assets/dancow.png')} />
-            <Text style={{fontSize: 24, color: 'black'}}>Dancow</Text>
-            <Text style={{fontSize: 13, color: 'black'}}>Rp. 5000 x 2 </Text>
+
+          <View style={styles.items}>
+            <View style={{flexDirection:'row', marginBottom: '4%'}}>
+            <Image source={require('../assets/dancow.png')} />  
+              <View style={{alignContent:'space-between',
+              width: '80%',
+              backgroundColor: 'white'}}>
+                <Text style={{fontSize: 24, color: 'black'}}>Dancow</Text>
+                <View style={{flexDirection: 'row', width: '100%',alignItems: 'center',
+                  justifyContent: 'space-between'}}> 
+                  <Text style={{fontSize: 13, color: 'black'}}>Rp. 5.500 </Text>
+                  <Text style={{fontSize: 13, color: 'black'}}>Qty. 2 </Text>
+                  <Text style={{fontSize: 13, color: 'black'}}>Rp. 11.000 </Text>
+              </View>
+              </View>
             </View>
-         
+            <View style={{flexDirection:'row', marginBottom: '4%'}}>
+            <Image source={require('../assets/dancow.png')} />  
+              <View style={{alignContent:'space-between',
+              width: '80%',
+              backgroundColor: 'white'}}>
+                <Text style={{fontSize: 24, color: 'black'}}>Milo</Text>
+                <View style={{flexDirection: 'row', width: '100%',alignItems: 'center',
+                  justifyContent: 'space-between'}}> 
+                  <Text style={{fontSize: 13, color: 'black'}}>Rp. 6.500 </Text>
+                  <Text style={{fontSize: 13, color: 'black'}}>Qty. 2 </Text>
+                  <Text style={{fontSize: 13, color: 'black'}}>Rp. 13.000 </Text>
+              </View>
+              </View>
+
+            </View>
+          </View>  
+          
+          <View style={{width:"100%",
+            height: 40,
+            paddingLeft: '8%',
+            paddingRight: '0%',
+
+            backgroundColor: '#C4C4C4',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            bottom: '-80%',
+            position: 'absolute',
+                      
+            }}>
+            <Text style={{ fontSize: 20, color:"#0E49B5",alignSelf:"center",fontWeight: 'bold'}}>Total</Text>
+            <View style={{width: 120, height: 40, backgroundColor: '#0E49B5',flexDirection:'row'}} >
+            <Text style={{ fontSize: 20, color:'white',alignSelf:"center",marginLeft: '15%'}}>Rp.50.000</Text>
+            </View>
+          </View>
+
         </View> 
       </View>
     </ScrollView>
@@ -50,7 +96,7 @@ const statusPesanan = () => {
 const styles = StyleSheet.create({
 bgsquare: {
     width: '100%',
-    height: '35%',
+    height: '30%',
     backgroundColor: '#0E49B5',
     padding: '5%',
     justifyContent: 'center',
@@ -80,7 +126,7 @@ bgsquare: {
     marginTop: 10,
     fontSize: 32,
     color: 'white',
-   fontWeight: 'bold'
+    fontWeight: 'bold'
   },
   teksStatus: {
     fontSize: 20,
@@ -88,7 +134,7 @@ bgsquare: {
   },
   button: {
     backgroundColor: '#0E49B5',
-    height: '26%',
+    height: '12%',
     width: '90%',
     padding: 4,
     borderRadius: 8,
@@ -99,18 +145,21 @@ bgsquare: {
     color: 'white',
     fontSize: 12,
     textAlign: 'center',
+    marginTop: 4
   },
   produk: {
     
     alignItems: 'center',
   },
   items: {
-    width: Dimensions.get('window').width - 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '5%',
-    margin: '2%',
+
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    marginBottom: '4%',
+    marginTop: '4%',
+    marginLeft: '4%',
+    marginRight: '4%'
   },
 });
 

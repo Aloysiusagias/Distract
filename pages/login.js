@@ -29,9 +29,9 @@ const login = () => {
         <Text style={styles.teksMasuk}>Masuk</Text>
           <View style={styles.containerIsi}>
             <View style={[styles.input, {marginTop: '5%'}]}>
-              <Image source={require('../assets/person_outline.png')} />
+              <Image source={require('../assets/call.png')} />
               <TextInput
-                placeholder="Nama"
+                placeholder="No Hp"
                 style={styles.inputtext}
                 underlineColorAndroid="black"
               />

@@ -16,58 +16,75 @@ const profil = () => {
   height = height - height * 0.108;
   return (
     <ScrollView>
-      <View style={{width: width, height: height}}>
+      <View style={{width: width, height: height,alignItems:'center'}}>
         <View style={styles.bgsquare}>
           <View style={styles.bgIcon}>
             <Image
               source={require('../assets/person.png')}
               style={styles.foto}
             />
+            <TouchableOpacity onPress={() => console.log('edit')}>
             <Image
               source={require('../assets/photo_camera.png')}
-              style={styles.editFoto}
+              style={{alignSelf: 'flex-end'}}
             />
+            </TouchableOpacity>
           </View>
           <View style={styles.editNama}>
-            <Text style={styles.teksNama}>Ali Baba</Text>
+            <Text style={styles.teksNama}>Ali Baba </Text>
+            <TouchableOpacity onPress={() => console.log('edit')}>
             <Image source={require('../assets/edit.png')} />
+            </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity onPress={() => console.log('jalan')}>
+      
           <View
             style={{
               width: Dimensions.get('window').width - 35,
               flexDirection: 'row',
               backgroundColor: 'white',
               alignItems: 'center',
-              justifyContent: 'space-between',
+              justifyContent: 'flex-start',
               paddingHorizontal: '5%',
+              marginBottom: '4%',
+              elevation: 12,
             }}>
-            <View style={{width: 25, height: 25, backgroundColor: 'black'}} />
+             
+            <Image source={require('../assets/place.png')} />
+           
             <View style={styles.items}>
-              <Text style={{fontSize: 24, color: 'black'}}>Lokasi</Text>
+              <Text style={{fontSize: 24, color: 'black'}}>
+                Lokasi
+              </Text>
               <Text style={{fontSize: 13, color: 'black'}}>
                 Sragen kulon, Sragen, Jawa Tengah
               </Text>
             </View>
-            <View style={{width: 25, height: 25, backgroundColor: 'black'}} />
+            <TouchableOpacity onPress={() => console.log('edit')}>
+            <Image style={{marginLeft: '30%'}}  source={require('../assets/edit2.png')} />
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
+      
         <View
           style={{
             width: Dimensions.get('window').width - 35,
             flexDirection: 'row',
             backgroundColor: 'white',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-start',
             paddingHorizontal: '5%',
+            marginBottom: '4%',
+            elevation: 12,
           }}>
-          <View style={{width: 25, height: 25, backgroundColor: 'black'}} />
+           <Image source={require('../assets/call.png')} />
+         
           <View style={styles.items}>
             <Text style={{fontSize: 24, color: 'black'}}>No Telp</Text>
             <Text style={{fontSize: 13, color: 'black'}}>081234567890</Text>
           </View>
-          <View style={{width: 25, height: 25, backgroundColor: 'black'}} />
+          <TouchableOpacity onPress={() => console.log('edit')}>
+          <Image  style={{marginLeft: '65%'}} source={require('../assets/edit2.png') }  />
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
@@ -82,6 +99,7 @@ const styles = StyleSheet.create({
     padding: '5%',
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: '5%'
   },
   bgIcon: {
     width: 120,
@@ -99,7 +117,6 @@ const styles = StyleSheet.create({
     fontSize: 40,
     color: 'white',
   },
-
   items: {
     alignItems: 'flex-start',
     padding: '2%',
@@ -117,9 +134,6 @@ const styles = StyleSheet.create({
   editNama: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  editFoto: {
-    alignSelf: 'flex-end',
   },
 });
 
