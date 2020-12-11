@@ -7,8 +7,8 @@ import {
   Text,
   FlatList,
 } from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {TabView, SceneMap} from 'react-native-tab-view';
-
 
 const FirstRoute = () => (
   <FlatList
@@ -27,12 +27,14 @@ const FirstRoute = () => (
           nama = 'Toko tersebut';
           break;
       }
-      
+
       return (
-        <View style={styles.items}>
-          <Text style={{fontSize: 24, color: '#fff'}}>{nama}</Text>
-          <Text style={{fontSize: 16, color: '#fff'}}>25 November 2020</Text>
-        </View>
+        <TouchableOpacity>
+          <View style={styles.items}>
+            <Text style={{fontSize: 24, color: '#fff'}}>{nama}</Text>
+            <Text style={{fontSize: 16, color: '#fff'}}>25 November 2020</Text>
+          </View>
+        </TouchableOpacity>
       );
     }}
   />
@@ -60,7 +62,7 @@ const SecondRoute = () => (
 );
 
 const ThirdRoute = () => (
-    <FlatList
+  <FlatList
     data={[...Array(2)]}
     keyExtractor={(item, index) => index + 'a'}
     renderItem={({item, index}) => {
@@ -81,7 +83,7 @@ const ThirdRoute = () => (
       );
     }}
   />
-  );
+);
 
 const initialLayout = {width: Dimensions.get('window').width};
 
@@ -90,20 +92,23 @@ const riwayatPesanan = () => {
   const [routes] = React.useState([
     {key: 'first', title: 'Dikemas'},
     {key: 'second', title: 'Selesai Dikemas'},
-    {key: 'third', title: 'Selesai'}
+    {key: 'third', title: 'Selesai'},
   ]);
 
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
-    third: ThirdRoute
+    third: ThirdRoute,
   });
 
   return (
     <View style={{flex: 1}}>
       <View style={styles.bgsquare}>
         <View style={styles.bgIcon}>
-          <Image source={require('../assets/logo.png')} style={styles.bagIcon} />
+          <Image
+            source={require('../assets/logo.png')}
+            style={styles.bagIcon}
+          />
         </View>
         <Text style={styles.teksToko}>Riwayat Pesanan</Text>
       </View>
@@ -153,7 +158,7 @@ const styles = StyleSheet.create({
     padding: '5%',
     margin: '2%',
     backgroundColor: '#3A72D9',
-    borderRadius: 10
+    borderRadius: 10,
   },
 });
 

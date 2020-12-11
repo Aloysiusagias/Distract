@@ -1,20 +1,20 @@
 import React from 'react';
 import {
-    View,
-    Text,
-    ScrollView,
-    StyleSheet,
-    Image,
-    Dimensions,
-    TouchableOpacity,
-  } from 'react-native';
-  import {useNavigation} from '@react-navigation/native';
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const profil = () => {
-    const navigation = useNavigation();
-    let {width, height} = Dimensions.get('window');
-    height = height - height * 0.108;
-    return(
+  const navigation = useNavigation();
+  let {width, height} = Dimensions.get('window');
+  height = height - height * 0.108;
+  return (
     <ScrollView>
       <View style={{width: width, height: height}}>
         <View style={styles.bgsquare}>
@@ -23,37 +23,59 @@ const profil = () => {
               source={require('../assets/person.png')}
               style={styles.foto}
             />
-            <Image 
-            source={require('../assets/photo_camera.png')} 
-            style={styles.editFoto}
+            <Image
+              source={require('../assets/photo_camera.png')}
+              style={styles.editFoto}
             />
           </View>
           <View style={styles.editNama}>
-          <Text style={styles.teksNama}>Ali Baba</Text>
-          <Image 
-            source={require('../assets/edit.png')} 
-            />
+            <Text style={styles.teksNama}>Ali Baba</Text>
+            <Image source={require('../assets/edit.png')} />
           </View>
         </View>
-        <TouchableOpacity
-              onPress={() => navigation.navigate('statusPesanan')}>
-        <View style={styles.items}>
-          <Text style={{fontSize: 24, color: 'black'}}>Lokasi</Text>
-          <Text style={{fontSize: 13, color: 'black'}}>Sragen kulon, Sragen, Jawa Tengah</Text>
+        <TouchableOpacity onPress={() => console.log('jalan')}>
+          <View
+            style={{
+              width: Dimensions.get('window').width - 35,
+              flexDirection: 'row',
+              backgroundColor: 'white',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingHorizontal: '5%',
+            }}>
+            <View style={{width: 25, height: 25, backgroundColor: 'black'}} />
+            <View style={styles.items}>
+              <Text style={{fontSize: 24, color: 'black'}}>Lokasi</Text>
+              <Text style={{fontSize: 13, color: 'black'}}>
+                Sragen kulon, Sragen, Jawa Tengah
+              </Text>
+            </View>
+            <View style={{width: 25, height: 25, backgroundColor: 'black'}} />
+          </View>
+        </TouchableOpacity>
+        <View
+          style={{
+            width: Dimensions.get('window').width - 35,
+            flexDirection: 'row',
+            backgroundColor: 'white',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingHorizontal: '5%',
+          }}>
+          <View style={{width: 25, height: 25, backgroundColor: 'black'}} />
+          <View style={styles.items}>
+            <Text style={{fontSize: 24, color: 'black'}}>No Telp</Text>
+            <Text style={{fontSize: 13, color: 'black'}}>081234567890</Text>
+          </View>
+          <View style={{width: 25, height: 25, backgroundColor: 'black'}} />
         </View>
-        </TouchableOpacity>        
-        <View style={styles.items}>
-          <Text style={{fontSize: 24, color: 'black'}}>No Telp</Text>
-          <Text style={{fontSize: 13, color: 'black'}}>081234567890</Text>
-        </View>  
       </View>
     </ScrollView>
-
-    )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-bgsquare: {
+  bgsquare: {
     width: '100%',
     height: '35%',
     backgroundColor: '#0E49B5',
@@ -79,20 +101,18 @@ bgsquare: {
   },
 
   items: {
-    width: Dimensions.get('window').width - 35,
     alignItems: 'flex-start',
     padding: '2%',
     margin: '4%',
     marginBottom: 0,
-    backgroundColor: 'white',
     shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 6,
-        },
-        shadowOpacity: 0.37,
-        shadowRadius: 7.49,
-        elevation: 12,
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+    elevation: 12,
   },
   editNama: {
     flexDirection: 'row',
@@ -100,7 +120,7 @@ bgsquare: {
   },
   editFoto: {
     alignSelf: 'flex-end',
-  }
+  },
 });
 
 export default profil;
