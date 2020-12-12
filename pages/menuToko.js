@@ -16,34 +16,42 @@ import {Picker} from '@react-native-picker/picker';
 import {useNavigation} from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const DATA = [
   {
     nama: 'Dancow',
+    harga: 5000,
     tag: ['susu', 'dancow', 'sapi'],
   },
   {
     nama: 'Milo',
+    harga: 6000,
     tag: ['susu', 'milo', 'sapi'],
   },
   {
     nama: 'ZEE',
+    harga: 7000,
     tag: ['susu', 'zee', 'sapi'],
   },
   {
     nama: 'HILO',
+    harga: 8000,
     tag: ['susu', 'hilo', 'sapi'],
   },
   {
     nama: 'Anlene',
+    harga: 9000,
     tag: ['susu', 'anlene', 'sapi'],
   },
   {
     nama: 'Anlene',
+    harga: 1000,
     tag: ['susu', 'anlene', 'sapi'],
   },
   {
     nama: 'Anlene',
+    harga: 2000,
     tag: ['susu', 'anlene', 'sapi'],
   },
 ];
@@ -57,17 +65,17 @@ const menuToko = () => {
         <View
           style={{width: '80%', height: '60%', backgroundColor: '#C4C4C4'}}
         />
-        <Text style={{color: '#0E49B5', fontSize: 24}}>Prana</Text>
-        <Text style={{color: '#524F4F', fontSize: 18}}>
-          Jl. Pegangsaan no.2
+        <Text style={{color: '#0E49B5', fontSize: 24}}>{item.nama}</Text>
+        <Text style={{color: '#524F4F', fontSize: 18}}>Rp.{item.harga},-</Text>
+        <Text style={{color: 'rgba(0, 0, 0, 0.5)'}}>
+          {item.tag.map((items) => '#' + items + ' ')}
         </Text>
-        <Text style={{color: 'rgba(0, 0, 0, 0.5)'}}>Coffee Shop</Text>
       </TouchableOpacity>
     );
   };
   const navigation = useNavigation();
   let {width, height} = Dimensions.get('window');
-  height = height - height * 0.108;
+  height = height - height * 0.035;
   return (
     <KeyboardAwareScrollView>
       <View style={{width: width, height: height}}>
@@ -89,12 +97,10 @@ const menuToko = () => {
 
             <View
               style={{
-                flexDirection: 'column',
-                height: 100,
-                width: width,
-                padding: 30,
-                paddingBottom:'10%',
-                alignContent: 'space-around',
+                flex: 1,
+                justifyContent: 'center',
+                paddingVertical: 40,
+                paddingLeft: 10
               }}>
               <Text style={styles.teksToko}>Toko</Text>
               <Text style={styles.teksAlamat}>
@@ -118,12 +124,17 @@ const menuToko = () => {
                 {label: 'Antar', value: 'Antar'},
               ]}
               defaultIndex={1}
-              containerStyle={{height: 40, width: '40%',paddingRight:"5%",paddingLeft:-10}}
+              containerStyle={{
+                height: 40,
+                width: '40%',
+                paddingRight: '5%',
+                paddingLeft: -10,
+              }}
               onChangeItem={(items) => console.log(items.label, items.value)}
             />
             <View style={styles.input}>
               <TextInput
-                placeholder="Cari toko disini..."
+                placeholder="Cari product disini..."
                 style={{fontSize: 18}}
               />
               <Image source={require('../assets/search.png')} />
@@ -132,6 +143,7 @@ const menuToko = () => {
         </View>
 
         <FlatList
+          style={{height: '70%'}}
           data={DATA}
           renderItem={renderItem}
           keyExtractor={(item, index) => index + 'A'}
@@ -142,13 +154,7 @@ const menuToko = () => {
         activeOpacity={0.5}
         onPress={() => navigation.navigate('keranjang')}
         style={styles.TouchableOpacityStyleTambah}>
-        <Image
-          source={{
-            uri:
-              'https://reactnativecode.com/wp-content/uploads/2017/11/Floating_Button.png',
-          }}
-          style={styles.FloatingButtonStyle}
-        />
+        <Icon name="shoppingcart" size={30} color={'white'}/>
       </TouchableOpacity>
     </KeyboardAwareScrollView>
   );
@@ -190,7 +196,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: 20,
     justifyContent: 'space-between',
-    width:"65%",
+    width: '65%',
   },
   containerItem: {
     flex: 2,
@@ -206,11 +212,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     right: 30,
     bottom: 10,
+    backgroundColor: '#0E49B5',
+    borderRadius: 25,
   },
   FloatingButtonStyle: {
     position: 'absolute',
-    width: 50,
-    height: 50,
+    width: 20,
+    height: 20,
+    color: 'white',
   },
 });
 
