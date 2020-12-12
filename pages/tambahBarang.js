@@ -49,29 +49,22 @@ const keranjang = () => {
             <View style={{
                 flexDirection: "row",
                 alignSelf: 'center',
-                alignItems:'center',
                 paddingTop:"10%",
-                paddingRight:-100,
             }}>
-                <Text style={{fontSize:40,paddingRight:"10%",flex:1}}>Jumlah</Text>
+                <Text style={{fontSize:40,paddingRight:"10%"}}>Jumlah</Text>
                 <View
-                style={{
-                    flexDirection:"row",
-                    alignItems:'center',
-                    alignSelf:'center',
-                    backgroundColor: '#E4E3E3',
-                    marginLeft: 10,
-                    flex:1,
-                    }}>
+                style={styles.viewJml}>
                         
-                        <View style={styles.buttonStyle}>
+                        <View style={styles.buttonEdit}>
                             <Button
                             onPress={Cminus}
                             title='-' />
                         </View>
+                       <View style={{width: 70, height: 35, backgroundColor: '#E4E3E3', alignSelf:'center'}} >
                         <Text style={styles.teksConter} >{count}</Text>
-                        <View style={styles.buttonStyle}>
-                            <Button
+                        </View>
+                        <View style={styles.buttonEdit}>
+                            <Button 
                             onPress={Cplus}
                             title='+' />
                         </View>
@@ -92,7 +85,7 @@ const keranjang = () => {
 
             <TouchableOpacity
               style={{marginBottom: '20%'}}
-              onPress={() => navigation.navigate('menuToko')}>
+              onPress={() => navigation.navigate('keranjang')}>
               <View style={styles.buttonS}>
                 <Text style={styles.buttonText}>TAMBAH</Text>
               </View>
@@ -135,7 +128,7 @@ const styles = StyleSheet.create({
     },
     teksConter: {
         color: 'black',
-        fontSize: 40,
+        fontSize: 28,
         justifyContent:"center",
         alignSelf: 'center',
         
@@ -212,9 +205,18 @@ const styles = StyleSheet.create({
         width: "10%",
         borderRadius:20,
         margin: 10,
-      }
-    
-
+      },
+      viewJml: {
+        width: 100,
+        flexDirection:"row",
+        alignContent: 'space-between',
+        marginLeft: 10,
+        
+        },
+        buttonEdit: {
+          alignSelf:'center', 
+          width:'25%'
+        }
 })
 
 export default keranjang;
