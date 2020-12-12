@@ -49,9 +49,11 @@ const keranjang = () => {
             <View style={{
                 flexDirection: "row",
                 alignSelf: 'center',
+                alignItems:'center',
                 paddingTop:"10%",
+                paddingRight:-100,
             }}>
-                <Text style={{fontSize:40,paddingRight:"10%"}}>Jumlah</Text>
+                <Text style={{fontSize:40,paddingRight:"10%",flex:1}}>Jumlah</Text>
                 <View
                 style={{
                     flexDirection:"row",
@@ -59,7 +61,7 @@ const keranjang = () => {
                     alignSelf:'center',
                     backgroundColor: '#E4E3E3',
                     marginLeft: 10,
-                    
+                    flex:1,
                     }}>
                         
                         <View style={styles.buttonStyle}>
@@ -90,7 +92,7 @@ const keranjang = () => {
 
             <TouchableOpacity
               style={{marginBottom: '20%'}}
-              onPress={() => navigation.navigate('keranjang')}>
+              onPress={() => navigation.navigate('menuToko')}>
               <View style={styles.buttonS}>
                 <Text style={styles.buttonText}>TAMBAH</Text>
               </View>

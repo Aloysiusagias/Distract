@@ -93,6 +93,7 @@ const menuToko = () => {
                 height: 100,
                 width: width,
                 padding: 30,
+                paddingBottom:'10%',
                 alignContent: 'space-around',
               }}>
               <Text style={styles.teksToko}>Toko</Text>
@@ -116,8 +117,8 @@ const menuToko = () => {
                 {label: 'Ambil', value: 'Ambil'},
                 {label: 'Antar', value: 'Antar'},
               ]}
-              defaultIndex={0}
-              containerStyle={{height: 40, width: '25%'}}
+              defaultIndex={1}
+              containerStyle={{height: 40, width: '40%',paddingRight:"5%",paddingLeft:-10}}
               onChangeItem={(items) => console.log(items.label, items.value)}
             />
             <View style={styles.input}>
@@ -189,6 +190,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: 20,
     justifyContent: 'space-between',
+    width:"65%",
   },
   containerItem: {
     flex: 2,

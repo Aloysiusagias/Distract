@@ -77,11 +77,11 @@ const keranjang = () => {
                 title='Hapus' />
             </View>
           </View>
-          <View style={{flexDirection:"row",width:"100%",bottom:20,}}>
+          <View style={{flexDirection:"row",width:"100%",alignItems: 'center',position: 'absolute',bottom: "-200%"}}>
           <Text style={{width:"80%",alignSelf:"center",paddingLeft:"10%",fontSize: 20,backgroundColor:"#F9F9F9",color:"#0E49B5"}}>Total Rp.5000</Text>
           <View style={{width:"20%"}}>
               <Button 
-                    onPress={hapusB}
+                    onPress={() => navigation.navigate('statusPesanan')}
                     title='Beli' />
           </View>
           </View>
@@ -129,7 +129,7 @@ teksToko: {
  fontWeight: 'bold'
 },
 teksConter :{
-  
+  paddingLeft:10,
   fontSize: 14,
   width: "20%"
 },
