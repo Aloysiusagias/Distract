@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -12,9 +12,25 @@ import {
 import {useNavigation} from '@react-navigation/native';
 
 const register = () => {
+  const [nama, setNama] = useState();
+  const [pass, setPass] = useState();
+  const [phone, setPhone] = useState();
   let {width, height} = Dimensions.get('window');
   height = height - height * 0.035;
   const navigation = useNavigation();
+
+  const checking = () => {
+    if (nama == null || nama == '') {
+      alert('Nama tidak boleh kosong');
+    } else if (phone == null || phone == '') {
+      alert('No hp tidak boleh kosong');
+    } else if (pass == null || pass == '') {
+      alert('Password tidak boleh kosong');
+    } else {
+      navigation.navigate('registerDaerah');
+    }
+  };
+
   return (
     <ScrollView>
       <View style={{width: width, height: height}}>
@@ -31,6 +47,7 @@ const register = () => {
                 placeholder="Nama"
                 style={styles.inputtext}
                 underlineColorAndroid="black"
+                onChangeText={(item) => setNama(item)}
               />
             </View>
             <View style={[styles.input, {marginVertical: '5%'}]}>
@@ -40,6 +57,7 @@ const register = () => {
                 style={styles.inputtext}
                 underlineColorAndroid="black"
                 keyboardType="phone-pad"
+                onChangeText={(item) => setPhone(item)}
               />
             </View>
             <View style={styles.input}>
@@ -49,11 +67,14 @@ const register = () => {
                 style={styles.inputtext}
                 underlineColorAndroid="black"
                 secureTextEntry={true}
+                onChangeText={(item) => setPass(item)}
               />
             </View>
             <TouchableOpacity
               style={{marginTop: '15%', marginBottom: '10%'}}
-              onPress={() => navigation.navigate('registerDaerah')}>
+              onPress={() => navigation.navigate('registerDaerah')}
+              // onPress={() => checking()}
+            >
               <View style={styles.button}>
                 <Text style={styles.buttonText}>DAFTAR</Text>
               </View>

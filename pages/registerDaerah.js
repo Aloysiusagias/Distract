@@ -26,6 +26,7 @@ const registerDaerah = () => {
   const [listKec, setKec] = useState({});
   const navigation = useNavigation();
   const [isReadyAPI, setReadyAPI] = useState(false);
+  const [lengkap, setLengkap] = useState(false);
   height = height - height * 0.035;
 
   useEffect(() => {
@@ -100,6 +101,11 @@ const registerDaerah = () => {
     getKec(id_kabupaten);
   };
 
+  const checking = () => {
+    if (lengkap == true) navigation.navigate('bottomTabs');
+    else alert('data tidak lengkap');
+  };
+
   return (
     <ScrollView>
       <View style={{width: width, height: height}}>
@@ -165,7 +171,9 @@ const registerDaerah = () => {
               {/* PICKER KECAMATAN */}
               <Picker
                 selectedValue={listKec.length > 0 ? kecamatan : 'Kabupaten'}
-                onValueChange={(item, index) => setKecamatan(item)}
+                onValueChange={(item, index) =>
+                  setKecamatan(item) + setLengkap(true)
+                }
                 style={styles.inputtext}
                 itemStyle={{fontSize: 20}}>
                 {isReadyAPI && listKec.length > 0 ? (
@@ -185,8 +193,9 @@ const registerDaerah = () => {
             </View>
             <TouchableOpacity
               style={{marginTop: '15%', marginBottom: '10%'}}
-              // onPress={() => navigation.navigate('bottomTabs')}
-              onPress={() => cekApi()}>
+              // onPress={() => checking()}
+              onPress={() => navigation.navigate('bottomTabs')}
+              >
               <View style={styles.button}>
                 <Text style={styles.buttonText}>SELESAI</Text>
               </View>
