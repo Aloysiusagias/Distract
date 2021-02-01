@@ -11,12 +11,12 @@ import {
   ActivityIndicator,
   Modal,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {Picker} from '@react-native-picker/picker';
 import axios from 'axios';
 import {set} from 'react-native-reanimated';
 
-const registerDaerah = () => {
+const registerDaerah = (props) => {
   let {width, height} = Dimensions.get('window');
   const [province, setProvince] = useState();
   const [kabupaten, setKabupaten] = useState();
@@ -25,12 +25,14 @@ const registerDaerah = () => {
   const [listKab, setKab] = useState({});
   const [listKec, setKec] = useState({});
   const navigation = useNavigation();
+  const route = useRoute();
   const [isReadyAPI, setReadyAPI] = useState(false);
   const [lengkap, setLengkap] = useState(false);
   height = height - height * 0.035;
 
   useEffect(() => {
     getProvinsi();
+    console.log(route.params)
   }, []);
 
   const getProvinsi = () => {
@@ -194,8 +196,8 @@ const registerDaerah = () => {
             <TouchableOpacity
               style={{marginTop: '15%', marginBottom: '10%'}}
               // onPress={() => checking()}
-              onPress={() => navigation.navigate('bottomTabs')}
-              >
+              onPress={() => {navigation.navigate('bottomTabs')
+              console.log("Kecamatan :", listKab)}}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>SELESAI</Text>
               </View>

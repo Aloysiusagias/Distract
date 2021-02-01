@@ -85,7 +85,7 @@ const keranjang = () => {
 
             <TouchableOpacity
               style={{marginBottom: '20%'}}
-              onPress={() => navigation.navigate('keranjang')}>
+              onPress={() => navigation.navigate('menuToko')}>
               <View style={styles.buttonS}>
                 <Text style={styles.buttonText}>TAMBAH</Text>
               </View>

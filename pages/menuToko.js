@@ -77,7 +77,7 @@ const menuToko = () => {
   let {width, height} = Dimensions.get('window');
   height = height - height * 0.035;
   return (
-    <KeyboardAwareScrollView>
+    <View>
       <View style={{width: width, height: height}}>
         <View style={styles.bgsquare}>
           <View
@@ -143,7 +143,7 @@ const menuToko = () => {
         </View>
 
         <FlatList
-          style={{height: '70%'}}
+          style={{height: '70%',zIndex:-1}}
           data={DATA}
           renderItem={renderItem}
           keyExtractor={(item, index) => index + 'A'}
@@ -156,7 +156,7 @@ const menuToko = () => {
         style={styles.TouchableOpacityStyleTambah}>
         <Icon name="shoppingcart" size={30} color={'white'}/>
       </TouchableOpacity>
-    </KeyboardAwareScrollView>
+    </View>
   );
 };
 
@@ -220,6 +220,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     color: 'white',
+    
   },
 });
 

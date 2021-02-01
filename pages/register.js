@@ -10,6 +10,7 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import Axios from 'axios';
 
 const register = () => {
   const [nama, setNama] = useState();
@@ -27,7 +28,40 @@ const register = () => {
     } else if (pass == null || pass == '') {
       alert('Password tidak boleh kosong');
     } else {
-      navigation.navigate('registerDaerah');
+      // navigation.navigate('registerDaerah');
+      // alert("Fetch api here")
+      var nama2 = nama;
+      var nomor2 = phone;
+      var pass2 = pass;
+      var url = 'http://10.0.2.2:80/api/insert.php';
+      var headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      };
+      var Data = {
+        Nama: nama2,
+        Nomor: nomor2,
+        Pass: pass2,
+      };
+
+      // fetch(url, {method: 'POST', headers: headers, body: JSON.stringify(Data)})
+      //   .then((response) => {
+      //     console.log(response)
+      //     response.text()
+      //   })
+      //   .then( respons => {
+      //     console.log(respons)
+      //   })
+      //   .catch((err) => alert('Error : ' + err));
+
+      Axios.post(url, Data)
+        .then((result) => {
+          console.log(result.data);
+          navigation.navigate('registerDaerah');
+        })
+        .catch((err) => console.log(err));
+
+        navigation.navigate('registerDaerah', Data);
     }
   };
 
@@ -72,9 +106,9 @@ const register = () => {
             </View>
             <TouchableOpacity
               style={{marginTop: '15%', marginBottom: '10%'}}
-              onPress={() => navigation.navigate('registerDaerah')}
-              // onPress={() => checking()}
-            >
+              // onPress={() => navigation.navigate('registerDaerah')}
+              onPress={() => checking()}
+              >
               <View style={styles.button}>
                 <Text style={styles.buttonText}>DAFTAR</Text>
               </View>

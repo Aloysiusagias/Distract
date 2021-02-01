@@ -1,18 +1,13 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  TextInput,
-  StyleSheet,
-  Image,
-  KeyboardAvoidingView,
   Dimensions,
-  FlatList,
+  FlatList, Image, StyleSheet, Text,
+
+
+  TextInput, TouchableOpacity, View
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const DATA = [
   {
@@ -54,7 +49,7 @@ const toko = () => {
   let {width, height} = Dimensions.get('window');
   height = height - height * 0.108;
   return (
-    <KeyboardAwareScrollView>
+    <View>
       <View style={{width: width, height: height}}>
         <View style={styles.bgsquare}>
           <View style={styles.bgIcon}>
@@ -79,7 +74,7 @@ const toko = () => {
           numColumns={2}
         />
       </View>
-    </KeyboardAwareScrollView>
+    </View>
   );
 };
 
