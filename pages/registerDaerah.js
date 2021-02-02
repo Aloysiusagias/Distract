@@ -1,22 +1,20 @@
-import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  Dimensions,
-  TouchableOpacity,
-  TextInput,
-  StyleSheet,
-  Image,
-  ActivityIndicator,
-  Modal,
-} from 'react-native';
-import {useNavigation, useRoute} from '@react-navigation/native';
 import {Picker} from '@react-native-picker/picker';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import axios from 'axios';
-import {set} from 'react-native-reanimated';
+import React, {useEffect, useState} from 'react';
+import {
+  ActivityIndicator,
+  Dimensions,
+  Image,
+  Modal,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
-const registerDaerah = (props) => {
+const registerDaerah = () => {
   let {width, height} = Dimensions.get('window');
   const [province, setProvince] = useState();
   const [kabupaten, setKabupaten] = useState();
@@ -29,10 +27,10 @@ const registerDaerah = (props) => {
   const [isReadyAPI, setReadyAPI] = useState(false);
   const [lengkap, setLengkap] = useState(false);
   height = height - height * 0.035;
+  var Data = {};
 
   useEffect(() => {
     getProvinsi();
-    console.log(route.params)
   }, []);
 
   const getProvinsi = () => {
@@ -104,8 +102,42 @@ const registerDaerah = (props) => {
   };
 
   const checking = () => {
-    if (lengkap == true) navigation.navigate('bottomTabs');
-    else alert('data tidak lengkap');
+    if (lengkap == true) {
+      Data = route.params;
+      listKab.forEach((element) => {
+        if (element.id == kabupaten) {
+          console.log(element.nama);
+          Data.kabupaten = element.nama;
+        }
+      });
+      listKec.forEach((element) => {
+        if (element.id == kecamatan) {
+          console.log(element.nama);
+          Data.kecamatan = element.nama;
+        }
+      });
+      listProv.forEach((element) => {
+        if (element.id == province) {
+          Data.provinsi = element.nama;
+          console.log('Data :', Data);
+        }
+      });
+
+      axios
+        .post('http://10.0.2.2:80/api/insert.php', {
+          Nama: Data.Nama,
+          Nomor: Data.Nomor,
+          Pass: Data.Pass,
+          Provinsi: Data.provinsi,
+          Kabupaten: Data.kabupaten,
+          Kecamatan: Data.kecamatan,
+        })
+        .then((result) => {
+          console.log(result.data);
+          navigation.navigate('bottomTabs');
+        })
+        .catch((err) => console.log(err));
+    } else alert('data tidak lengkap');
   };
 
   return (
@@ -195,9 +227,7 @@ const registerDaerah = (props) => {
             </View>
             <TouchableOpacity
               style={{marginTop: '15%', marginBottom: '10%'}}
-              // onPress={() => checking()}
-              onPress={() => {navigation.navigate('bottomTabs')
-              console.log("Kecamatan :", listKab)}}>
+              onPress={() => checking()}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>SELESAI</Text>
               </View>

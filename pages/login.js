@@ -10,23 +10,32 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
 
 const login = () => {
   let {width, height} = Dimensions.get('window');
-  const [phone, setPhone] = useState();
+  const [nama, setNama] = useState();
   const [pass, setPass] = useState();
   height = height - height * 0.035;
   const navigation = useNavigation();
 
   const checking = () => {
-    if (phone == null || phone == '') {
-      alert('No hp tidak boleh kosong');
+    if (nama == null || nama == '') {
+      alert('Nama tidak boleh kosong');
     } else if (pass == null || pass == '') {
       alert('Password tidak boleh kosong');
     } else {
-      navigation.navigate('bottomTabs');
+      // navigation.navigate('bottomTabs');
+      axios
+      .post('http://10.0.2.2:80/api/user_login.php', {
+        Nama: nama,
+        Pass: pass,
+      })
+      .then((result) => {console.log(result.data.Id)})
+      .catch((err) => console.log('Error :', err));
     }
   };
+  
 
   return (
     <ScrollView>
@@ -42,12 +51,12 @@ const login = () => {
           <Text style={styles.teksMasuk}>Masuk</Text>
           <View style={styles.containerIsi}>
             <View style={[styles.input, {marginTop: '5%'}]}>
-              <Image source={require('../assets/call.png')} />
+              <Image source={require('../assets/person_outline.png')} />
               <TextInput
-                placeholder="No Hp"
+                placeholder="Nama"
                 style={styles.inputtext}
                 underlineColorAndroid="black"
-                onChangeText={(phone) => setPhone(phone)}
+                onChangeText={(nama) => setNama(nama)}
               />
             </View>
             <View style={[styles.input, {marginVertical: '10%'}]}>
@@ -62,9 +71,8 @@ const login = () => {
             </View>
             <TouchableOpacity
               style={{marginBottom: '20%'}}
-              onPress={() => navigation.navigate('bottomTabs')}
-              // onPress={() => checking()}
-            >
+              // onPress={() => navigation.navigate('bottomTabs')}
+              onPress={() => checking()}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>MASUK</Text>
               </View>
