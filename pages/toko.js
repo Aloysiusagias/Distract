@@ -1,13 +1,16 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
-  Dimensions,
-  FlatList, Image, StyleSheet, Text,
-
-
-  TextInput, TouchableOpacity, View
+  BackHandler, Dimensions,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
 } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const DATA = [
   {
@@ -33,14 +36,35 @@ const DATA = [
 ];
 
 const toko = () => {
+
+  const disableBackButton = () => {
+    BackHandler.exitApp()
+    return true;
+  }
+
+  useEffect(() => {
+    const session = async () => {
+      const data = await AsyncStorage.getItem('DataUser')
+    };
+    session();
+
+    return function cleanup () {
+      // BackHandler.addEventListener('hardwareBackPress', disableBackButton())
+    }
+  }, []);
+
   const renderItem = ({item, index}) => {
     return (
-      <TouchableOpacity style={styles.containerItem} onPress={() => navigation.navigate('menuToko')}>
+      <TouchableOpacity
+        style={styles.containerItem}
+        onPress={() => navigation.navigate('menuToko')}>
         <View
           style={{width: '80%', height: '60%', backgroundColor: '#C4C4C4'}}
         />
         <Text style={{color: '#0E49B5', fontSize: 24}}>Prana</Text>
-        <Text style={{color: '#524F4F', fontSize: 18}}>Jl. Pegangsaan no.2</Text>
+        <Text style={{color: '#524F4F', fontSize: 18}}>
+          Jl. Pegangsaan no.2
+        </Text>
         <Text style={{color: 'rgba(0, 0, 0, 0.5)'}}>Coffee Shop</Text>
       </TouchableOpacity>
     );
@@ -115,7 +139,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 200,
     margin: 5,
-    alignItems: 'center'
+    alignItems: 'center',
   },
 });
 

@@ -1,15 +1,15 @@
+import {useNavigation} from '@react-navigation/native';
 import * as React from 'react';
 import {
-  View,
-  StyleSheet,
   Dimensions,
-  Image,
-  Text,
   FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import {useNavigation} from '@react-navigation/native';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 
 const initialLayout = {width: Dimensions.get('window').width};
 

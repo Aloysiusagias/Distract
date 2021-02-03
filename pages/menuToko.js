@@ -1,21 +1,16 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  TextInput,
-  StyleSheet,
-  Image,
-  KeyboardAvoidingView,
   Dimensions,
   FlatList,
-  state,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import {Picker} from '@react-native-picker/picker';
-import {useNavigation} from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 const DATA = [
@@ -100,7 +95,7 @@ const menuToko = () => {
                 flex: 1,
                 justifyContent: 'center',
                 paddingVertical: 40,
-                paddingLeft: 10
+                paddingLeft: 10,
               }}>
               <Text style={styles.teksToko}>Toko</Text>
               <Text style={styles.teksAlamat}>
@@ -143,7 +138,7 @@ const menuToko = () => {
         </View>
 
         <FlatList
-          style={{height: '70%',zIndex:-1}}
+          style={{height: '70%', zIndex: -1}}
           data={DATA}
           renderItem={renderItem}
           keyExtractor={(item, index) => index + 'A'}
@@ -154,7 +149,7 @@ const menuToko = () => {
         activeOpacity={0.5}
         onPress={() => navigation.navigate('keranjang')}
         style={styles.TouchableOpacityStyleTambah}>
-        <Icon name="shoppingcart" size={30} color={'white'}/>
+        <Icon name="shoppingcart" size={30} color={'white'} />
       </TouchableOpacity>
     </View>
   );
@@ -220,7 +215,6 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     color: 'white',
-    
   },
 });
 

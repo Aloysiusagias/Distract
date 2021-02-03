@@ -1,24 +1,21 @@
-import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import {
-  BottomTabBar,
-  createBottomTabNavigator,
-} from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
-  splash,
+  keranjang,
+  login,
+  menuToko,
   onBoarding,
+  profil,
   register,
   registerDaerah,
-  toko,
-  menuToko,
   riwayatPesanan,
-  profil,
-  login,
-  tambahBarang,
-  keranjang,
+  splash,
   statusPesanan,
+  tambahBarang,
+  toko,
 } from './route';
 
 const App = () => {
@@ -26,7 +23,7 @@ const App = () => {
   const bottomTab = createBottomTabNavigator();
   const bottomTabs = () => {
     return (
-      <bottomTab.Navigator>
+      <bottomTab.Navigator backBehavior={'none'}>
         <bottomTab.Screen
           name="Toko"
           component={toko}

@@ -1,15 +1,15 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
-  View,
-  Text,
-  ScrollView,
   Dimensions,
-  TouchableOpacity,
-  TextInput,
-  StyleSheet,
   Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 
 const register = () => {
   const [nama, setNama] = useState();
@@ -27,7 +27,6 @@ const register = () => {
     } else if (pass == null || pass == '') {
       alert('Password tidak boleh kosong');
     } else {
-      
       var nama2 = nama;
       var nomor2 = phone;
       var pass2 = pass;
@@ -37,7 +36,7 @@ const register = () => {
         Pass: pass2,
       };
 
-        navigation.navigate('registerDaerah', Data);
+      navigation.navigate('registerDaerah', Data);
     }
   };
 
@@ -83,8 +82,7 @@ const register = () => {
             <TouchableOpacity
               style={{marginTop: '15%', marginBottom: '10%'}}
               // onPress={() => navigation.navigate('registerDaerah')}
-              onPress={() => checking()}
-              >
+              onPress={() => checking()}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>DAFTAR</Text>
               </View>

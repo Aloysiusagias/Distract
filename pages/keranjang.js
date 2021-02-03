@@ -73,7 +73,7 @@ const keranjang = () => {
               position: 'absolute',
               bottom: 0,
               alignSelf: 'flex-end',
-              backgroundColor: 'green'
+              backgroundColor: 'green',
             }}>
             <Text
               style={{

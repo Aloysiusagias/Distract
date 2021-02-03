@@ -1,16 +1,17 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  Dimensions,
-  TouchableOpacity,
-  TextInput,
-  StyleSheet,
-  Image,
-} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
+import React, {useState} from 'react';
+import {
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 const login = () => {
   let {width, height} = Dimensions.get('window');
@@ -25,17 +26,26 @@ const login = () => {
     } else if (pass == null || pass == '') {
       alert('Password tidak boleh kosong');
     } else {
-      // navigation.navigate('bottomTabs');
       axios
-      .post('http://10.0.2.2:80/api/user_login.php', {
-        Nama: nama,
-        Pass: pass,
-      })
-      .then((result) => {console.log(result.data.Id)})
-      .catch((err) => console.log('Error :', err));
+        .post('http://10.0.2.2:80/api/user_login.php', {
+          Nama: nama,
+          Pass: pass,
+        })
+        .then((result) => {
+          AsyncStorage.clear();
+          console.log(result.data.Id);
+          session(JSON.stringify(result.data));
+        })
+        .catch((err) => console.log('Error :', err));
     }
   };
-  
+
+  const session = async (result) => {
+    await AsyncStorage.setItem('DataUser', result).then(() => {
+      console.log('Session berhasil disimpan');
+      navigation.navigate('bottomTabs');
+    });
+  };
 
   return (
     <ScrollView>
@@ -71,7 +81,6 @@ const login = () => {
             </View>
             <TouchableOpacity
               style={{marginBottom: '20%'}}
-              // onPress={() => navigation.navigate('bottomTabs')}
               onPress={() => checking()}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>MASUK</Text>

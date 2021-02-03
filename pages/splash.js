@@ -1,10 +1,24 @@
-import React from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 const splash = () => {
+
+  useEffect(() => {
+    const session = async () => {
+      const data = await AsyncStorage.getItem('DataUser')
+      if(data){
+        navigation.navigate('bottomTabs')
+      } else {
+        navigation.navigate('login')
+      }
+    };
+  
+    session();
+  });
+
     const navigation = useNavigation();
-    setTimeout(() => {navigation.navigate('onBoarding')}, 3000)
   return (
     <View style={styles.container}>
         <Image source={require('../assets/logo_1.png')}/>
