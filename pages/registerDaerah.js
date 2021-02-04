@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Picker} from '@react-native-picker/picker';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import axios from 'axios';
@@ -106,19 +107,16 @@ const registerDaerah = () => {
       Data = route.params;
       listKab.forEach((element) => {
         if (element.id == kabupaten) {
-          console.log(element.nama);
           Data.kabupaten = element.nama;
         }
       });
       listKec.forEach((element) => {
         if (element.id == kecamatan) {
-          console.log(element.nama);
           Data.kecamatan = element.nama;
         }
       });
       listProv.forEach((element) => {
         if (element.id == province) {
-          Data.provinsi = element.nama;
           console.log('Data :', Data);
         }
       });
@@ -133,12 +131,18 @@ const registerDaerah = () => {
           Kecamatan: Data.kecamatan,
         })
         .then((result) => {
-          console.log(result.data);
-          navigation.navigate('bottomTabs');
+          session(Data)
         })
         .catch((err) => console.log(err));
     } else alert('data tidak lengkap');
   };
+
+  const session = async (data) => {
+    await AsyncStorage.setItem('DataUser', JSON.stringify(data))
+    .then(() => {
+      navigation.navigate('bottomTabs');
+    })
+  }
 
   return (
     <ScrollView>

@@ -23,7 +23,7 @@ const App = () => {
   const bottomTab = createBottomTabNavigator();
   const bottomTabs = () => {
     return (
-      <bottomTab.Navigator backBehavior={'none'}>
+      <bottomTab.Navigator backBehavior={'none'} initialRouteName={'Toko'}>
         <bottomTab.Screen
           name="Toko"
           component={toko}

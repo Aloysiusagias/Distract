@@ -33,8 +33,13 @@ const login = () => {
         })
         .then((result) => {
           AsyncStorage.clear();
-          console.log(result.data.Id);
-          session(JSON.stringify(result.data));
+          // console.log(result.data.Id);
+          if(JSON.stringify(result.data) == 0){
+            alert("Username atau password salah!!")
+          } else {
+            // console.log('berhasil')
+            session(JSON.stringify(result.data));
+          }
         })
         .catch((err) => console.log('Error :', err));
     }
@@ -42,7 +47,7 @@ const login = () => {
 
   const session = async (result) => {
     await AsyncStorage.setItem('DataUser', result).then(() => {
-      console.log('Session berhasil disimpan');
+      console.log(result);
       navigation.navigate('bottomTabs');
     });
   };

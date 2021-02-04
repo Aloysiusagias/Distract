@@ -45,6 +45,7 @@ const toko = () => {
   useEffect(() => {
     const session = async () => {
       const data = await AsyncStorage.getItem('DataUser')
+      console.log(data)
     };
     session();
 
