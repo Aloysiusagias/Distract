@@ -1,5 +1,6 @@
-import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import Axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
   FlatList,
@@ -52,6 +53,20 @@ const DATA = [
 ];
 
 const menuToko = () => {
+  const [dataa, useData] = useState([]);
+  const route = useRoute();
+  useEffect(() => {
+    Axios.post('http://10.0.2.2:80/api/get_product.php', {
+      Id: route.params.Id,
+    })
+      .then((result) => {
+        useData(result.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
   const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity
@@ -60,10 +75,10 @@ const menuToko = () => {
         <View
           style={{width: '80%', height: '60%', backgroundColor: '#C4C4C4'}}
         />
-        <Text style={{color: '#0E49B5', fontSize: 24}}>{item.nama}</Text>
-        <Text style={{color: '#524F4F', fontSize: 18}}>Rp.{item.harga},-</Text>
+        <Text style={{color: '#0E49B5', fontSize: 24}}>{item.Nama}</Text>
+        <Text style={{color: '#524F4F', fontSize: 18}}>Rp.{item.Harga},-</Text>
         <Text style={{color: 'rgba(0, 0, 0, 0.5)'}}>
-          {item.tag.map((items) => '#' + items + ' ')}
+          {item.tag1 + ' #' + item.tag2 + ' #' + item.tag3}
         </Text>
       </TouchableOpacity>
     );
@@ -97,10 +112,14 @@ const menuToko = () => {
                 paddingVertical: 40,
                 paddingLeft: 10,
               }}>
-              <Text style={styles.teksToko}>Toko</Text>
+              <Text style={styles.teksToko}>{route.params.Nama}</Text>
               <Text style={styles.teksAlamat}>
-                Jl. Ks Tubun, Kebayan 3, Sragen Kulon,Kec. Sragen, Kabupaten
-                Sragen, Jawa Tengah
+                {[
+                  route.params.Lokasi,
+                  route.params.Kecamatan,
+                  route.params.Kabupaten,
+                  route.params.Provinisi,
+                ].join(', ')}
               </Text>
             </View>
           </View>
@@ -126,6 +145,9 @@ const menuToko = () => {
                 paddingLeft: -10,
               }}
               onChangeItem={(items) => console.log(items.label, items.value)}
+              itemStyle={{
+                justifyContent: 'flex-start',
+              }}
             />
             <View style={styles.input}>
               <TextInput
@@ -139,7 +161,7 @@ const menuToko = () => {
 
         <FlatList
           style={{height: '70%', zIndex: -1}}
-          data={DATA}
+          data={dataa}
           renderItem={renderItem}
           keyExtractor={(item, index) => index + 'A'}
           numColumns={2}

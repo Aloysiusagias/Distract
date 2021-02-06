@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
   Image,
@@ -11,6 +11,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  BackHandler
 } from 'react-native';
 
 const login = () => {
@@ -51,6 +52,17 @@ const login = () => {
       navigation.navigate('bottomTabs');
     });
   };
+
+  useEffect(()=>{
+    return function cleanup () {
+      BackHandler.addEventListener('hardwareBackPress', disableBackButton())
+    }
+  }, [])
+
+  const disableBackButton = () => {
+    BackHandler.exitApp()
+    return true;
+  }
 
   return (
     <ScrollView>

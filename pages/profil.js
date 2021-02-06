@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import RNRestart from 'react-native-restart';
 
 var data = {};
 
@@ -80,7 +81,8 @@ const profil = () => {
         style={styles.boxLogout}
         onPress={() => {
           AsyncStorage.clear();
-          navigation.navigate('login');
+          // navigation.navigate('login');
+          RNRestart.Restart()
         }}>
         <Text style={{fontSize: 18, fontWeight: 'bold'}}>Log Out</Text>
       </TouchableOpacity>

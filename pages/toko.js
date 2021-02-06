@@ -1,72 +1,52 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import {useNavigation} from '@react-navigation/native';
+import Axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {
-  BackHandler, Dimensions,
+  BackHandler,
+  Dimensions,
   FlatList,
   Image,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 
-const DATA = [
-  {
-    nama: 'Dancow',
-    tag: ['susu', 'dancow', 'sapi'],
-  },
-  {
-    nama: 'Milo',
-    tag: ['susu', 'milo', 'sapi'],
-  },
-  {
-    nama: 'ZEE',
-    tag: ['susu', 'zee', 'sapi'],
-  },
-  {
-    nama: 'HILO',
-    tag: ['susu', 'hilo', 'sapi'],
-  },
-  {
-    nama: 'Anlene',
-    tag: ['susu', 'anlene', 'sapi'],
-  },
-];
-
+var DATA = []
 const toko = () => {
-
+  const [dataa, useData] = useState()
   const disableBackButton = () => {
-    BackHandler.exitApp()
+    BackHandler.exitApp();
     return true;
-  }
+  };
 
   useEffect(() => {
-    const session = async () => {
-      const data = await AsyncStorage.getItem('DataUser')
-      console.log(data)
-    };
-    session();
-
-    return function cleanup () {
+    Axios.get('http://10.0.2.2:80/api/get_toko.php')
+      .then((result) => {
+        useData(result.data);
+      })
+      .catch((err) => console.error(err));
+      
+    return function cleanup() {
       // BackHandler.addEventListener('hardwareBackPress', disableBackButton())
-    }
-  }, []);
-
+    };
+  },[]);
+  console.log(dataa)
   const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity
         style={styles.containerItem}
-        onPress={() => navigation.navigate('menuToko')}>
+        onPress={() => navigation.navigate('menuToko', item)}>
         <View
           style={{width: '80%', height: '60%', backgroundColor: '#C4C4C4'}}
         />
-        <Text style={{color: '#0E49B5', fontSize: 24}}>Prana</Text>
+        <Text style={{color: '#0E49B5', fontSize: 24}}>{item.Nama}</Text>
         <Text style={{color: '#524F4F', fontSize: 18}}>
-          Jl. Pegangsaan no.2
+          {item.Lokasi}
         </Text>
-        <Text style={{color: 'rgba(0, 0, 0, 0.5)'}}>Coffee Shop</Text>
+        <Text style={{color: 'rgba(0, 0, 0, 0.5)'}}>{item.Tipe}</Text>
       </TouchableOpacity>
     );
   };
@@ -93,7 +73,7 @@ const toko = () => {
           </View>
         </View>
         <FlatList
-          data={DATA}
+          data={dataa}
           renderItem={renderItem}
           keyExtractor={(item, index) => index + 'A'}
           numColumns={2}
