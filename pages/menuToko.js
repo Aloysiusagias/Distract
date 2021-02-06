@@ -14,44 +14,6 @@ import {
 import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const DATA = [
-  {
-    nama: 'Dancow',
-    harga: 5000,
-    tag: ['susu', 'dancow', 'sapi'],
-  },
-  {
-    nama: 'Milo',
-    harga: 6000,
-    tag: ['susu', 'milo', 'sapi'],
-  },
-  {
-    nama: 'ZEE',
-    harga: 7000,
-    tag: ['susu', 'zee', 'sapi'],
-  },
-  {
-    nama: 'HILO',
-    harga: 8000,
-    tag: ['susu', 'hilo', 'sapi'],
-  },
-  {
-    nama: 'Anlene',
-    harga: 9000,
-    tag: ['susu', 'anlene', 'sapi'],
-  },
-  {
-    nama: 'Anlene',
-    harga: 1000,
-    tag: ['susu', 'anlene', 'sapi'],
-  },
-  {
-    nama: 'Anlene',
-    harga: 2000,
-    tag: ['susu', 'anlene', 'sapi'],
-  },
-];
-
 const menuToko = () => {
   const [dataa, useData] = useState([]);
   const route = useRoute();
@@ -67,11 +29,11 @@ const menuToko = () => {
       });
   }, []);
 
-  const renderItem = ({item, index}) => {
+  const renderItem = ({item}) => {
     return (
       <TouchableOpacity
         style={styles.containerItem}
-        onPress={() => navigation.navigate('tambahBarang')}>
+        onPress={() => navigation.navigate('tambahBarang', item)}>
         <View
           style={{width: '80%', height: '60%', backgroundColor: '#C4C4C4'}}
         />
@@ -169,7 +131,7 @@ const menuToko = () => {
       </View>
       <TouchableOpacity
         activeOpacity={0.5}
-        onPress={() => navigation.navigate('keranjang')}
+        onPress={() => navigation.navigate('keranjang', route.params)}
         style={styles.TouchableOpacityStyleTambah}>
         <Icon name="shoppingcart" size={30} color={'white'} />
       </TouchableOpacity>

@@ -1,4 +1,5 @@
-import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
   Button,
@@ -10,9 +11,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useEffect} from 'react/cjs/react.development';
 
 const keranjang = () => {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const Cplus = () => {
     setCount(count + 1 <= Number.MAX_SAFE_INTEGER ? count + 1 : count);
   };
@@ -22,7 +24,38 @@ const keranjang = () => {
   };
   let {width, height} = Dimensions.get('window');
   height = height - height * 0.035;
+  const route = useRoute();
+  const data = route.params;
   const navigation = useNavigation();
+
+  useEffect(() => {
+    // AsyncStorage.removeItem('Keranjang')
+    // console.log(data)
+    AsyncStorage.getItem('Keranjang')
+    .then(result => JSON.parse(result))
+    .then(result => console.log(result))
+  }, []);
+
+  const tambah = async () => {
+    data.jumlah = count
+    var data2 = await AsyncStorage.getItem('Keranjang');
+    data2 = JSON.parse(data2)
+    // console.log(data2.concat(data))
+    if (data2) {
+      data2 = data2.concat(data);
+      await AsyncStorage.setItem('Keranjang', JSON.stringify(data2)).then(
+        () => {
+          console.log('item stored');
+          navigation.navigate('menuToko');
+        }
+      );
+    } else {
+      AsyncStorage.setItem('Keranjang', JSON.stringify([data])).then(() => {
+        console.log('item stored');
+        navigation.navigate('menuToko');
+      });
+    }
+  };
   return (
     <ScrollView>
       <View style={{width: width, height: height}}>
@@ -34,10 +67,10 @@ const keranjang = () => {
           />
         </View>
         <View style={styles.container}>
-          <Text style={styles.teksMasuk}>Dancow</Text>
+          <Text style={styles.teksMasuk}>{data.Nama}</Text>
           <View style={styles.containerIsi}>
             <View>
-              <Text style={styles.teksHarga}>Rp.5000,-</Text>
+              <Text style={styles.teksHarga}>Rp.{data.Harga},-</Text>
             </View>
 
             <View
@@ -71,14 +104,20 @@ const keranjang = () => {
                 alignSelf: 'center',
                 paddingTop: '10%',
               }}>
-              <Text style={{fontSize: 18, color: '#524F4F'}}>#susu</Text>
-              <Text style={{fontSize: 18, color: '#524F4F'}}>#susu</Text>
-              <Text style={{fontSize: 18, color: '#524F4F'}}>#susu</Text>
+              <Text style={{fontSize: 18, color: '#524F4F'}}>
+                {'#' + data.tag1}
+              </Text>
+              <Text style={{fontSize: 18, color: '#524F4F'}}>
+                {'#' + data.tag2}
+              </Text>
+              <Text style={{fontSize: 18, color: '#524F4F'}}>
+                {'#' + data.tag3}
+              </Text>
             </View>
 
             <TouchableOpacity
               style={{marginBottom: '20%'}}
-              onPress={() => navigation.navigate('menuToko')}>
+              onPress={() => tambah()}>
               <View style={styles.buttonS}>
                 <Text style={styles.buttonText}>TAMBAH</Text>
               </View>

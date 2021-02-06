@@ -33,7 +33,6 @@ const toko = () => {
       // BackHandler.addEventListener('hardwareBackPress', disableBackButton())
     };
   },[]);
-  console.log(dataa)
   const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity

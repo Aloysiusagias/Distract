@@ -1,10 +1,11 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import React, {useState, useEffect} from 'react';
 import {
   Button,
   Dimensions,
   Image,
-  ScrollView,
+  FlatList,
   StyleSheet,
   Text,
   View,
@@ -13,89 +14,95 @@ import {
 const keranjang = () => {
   const navigation = useNavigation();
   const [count, setCount] = useState(0);
-  const Cplus = () => {
-    setCount(count + 1 <= Number.MAX_SAFE_INTEGER ? count + 1 : count);
-  };
+  const [data, setData] = useState([]);
+  const route = useRoute();
 
-  const Cminus = () => {
-    setCount(count - 1 >= 0 ? count - 1 : count);
-  };
+  useEffect(()=>{
+    AsyncStorage.getItem('Keranjang')
+    .then(result => JSON.parse(result))
+    .then(result => setData(result))
+  }, [])
+
   const hapusB = () => {
     setCount(count - 1 >= 0 ? count - count : count);
   };
   let {width, height} = Dimensions.get('window');
   height = height - height * 0.03;
-  return (
-    <ScrollView>
-      <View style={{width: width, height: height}}>
-        <View style={styles.bgsquare}>
-          <View style={styles.bgIcon}>
-            <Image source={require('../assets/bag.png')} style={styles.bag} />
-          </View>
-          <Text style={styles.teksToko}>TobangaDO</Text>
-        </View>
-        <View style={{height: '65%'}}>
-          <View style={styles.items}>
-            <Image source={require('../assets/dancow.png')} />
-            <View
-              style={{
-                flexDirection: 'column',
-                alignSelf: 'flex-start',
-              }}>
-              <Text style={{fontSize: 20, color: '#0E49B5'}}>Dancow</Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  backgroundColor: '#E4E3E3',
-                  width: 100,
-                }}>
-                <View style={styles.buttonStyle}>
-                  <Button onPress={Cminus} title="-" />
-                </View>
-                <Text style={styles.teksConter}>{count}</Text>
-                <View style={styles.buttonStyle}>
-                  <Button onPress={Cplus} title="+" />
-                </View>
-              </View>
-            </View>
-            <View style={{flexDirection: 'column'}}>
-              <Text>Rp.5000</Text>
-              <Button onPress={hapusB} title="Hapus" />
-            </View>
-          </View>
+
+  const renderItem = ({itemr}) => {
+    return (
+      <View style={styles.items}>
+        <Image source={require('../assets/dancow.png')} />
+        <View
+          style={{
+            flexDirection: 'column',
+            alignSelf: 'flex-start',
+          }}>
+          <Text style={{fontSize: 20, color: '#0E49B5'}}>{item.Nama}</Text>
           <View
             style={{
               flexDirection: 'row',
-              width: '100%',
               alignItems: 'center',
-              position: 'absolute',
-              bottom: 0,
-              alignSelf: 'flex-end',
-              backgroundColor: 'green',
+              justifyContent: 'space-between',
+              backgroundColor: '#E4E3E3',
+              width: 100,
             }}>
-            <Text
-              style={{
-                width: '80%',
-                alignSelf: 'center',
-                paddingLeft: '10%',
-                fontSize: 20,
-                backgroundColor: '#F9F9F9',
-                color: '#0E49B5',
-              }}>
-              Total Rp.5000
-            </Text>
-            <View style={{width: '20%'}}>
-              <Button
-                onPress={() => navigation.navigate('statusPesanan')}
-                title="Beli"
-              />
+            <View style={styles.buttonStyle}>
+              <Button onPress={item.jumlah++} title="-" />
+            </View>
+            <Text style={styles.teksConter}>{item.jumlah}</Text>
+            <View style={styles.buttonStyle}>
+              <Button onPress={item.jumlah--} title="+" />
             </View>
           </View>
         </View>
+        <View style={{flexDirection: 'column'}}>
+          <Text>Rp.{item.Harga}</Text>
+          <Button onPress={hapusB} title="Hapus" />
+        </View>
       </View>
-    </ScrollView>
+    );
+  };
+
+  return (
+    <View style={{flex: 1}}>
+      <View style={styles.bgsquare}>
+        <View style={styles.bgIcon}>
+          <Image source={require('../assets/bag.png')} style={styles.bag} />
+        </View>
+        <Text style={styles.teksToko}>{route.params.Nama}</Text>
+      </View>
+      <FlatList style={{height: '65%'}}
+      data={data}
+      renderItem={renderItem}/>
+      <View
+        style={{
+          flexDirection: 'row',
+          width: '100%',
+          alignItems: 'center',
+          position: 'absolute',
+          bottom: 0,
+          alignSelf: 'flex-end',
+        }}>
+        <Text
+          style={{
+            width: '80%',
+            alignSelf: 'center',
+            paddingLeft: '10%',
+            fontSize: 20,
+            backgroundColor: '#F9F9F9',
+            color: '#0E49B5',
+          }}>
+          Total Rp.5000
+        </Text>
+        <View style={{width: '20%'}}>
+          <Button
+            onPress={() => navigation.navigate('statusPesanan')}
+            title="Beli"
+          />
+        </View>
+      </View>
+    </View>
   );
 };
 

@@ -34,11 +34,9 @@ const login = () => {
         })
         .then((result) => {
           AsyncStorage.clear();
-          // console.log(result.data.Id);
           if(JSON.stringify(result.data) == 0){
             alert("Username atau password salah!!")
           } else {
-            // console.log('berhasil')
             session(JSON.stringify(result.data));
           }
         })
